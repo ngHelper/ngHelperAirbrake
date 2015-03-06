@@ -21,9 +21,12 @@ Airbrake requires a project id and secret. This can be configured via the applic
 .run([ '$airbrake', function($airbrake,) {
 
       // configure airbrake
-      $airbrake.setProject('<<PROJECTID>>', '<<PROJECTSECRET>>');
+      $airbrake.setProject('<<PROJECTID>>', '<<PROJECTSECRET>>', '<<EnvironmentOptional>>');
 }]);
 ```
+
+The Airbrake plugin is not available as long the setProject method is not called. Only when this method is called exception
+will be catched from the subsystem.
 
 ## Contributing
 
