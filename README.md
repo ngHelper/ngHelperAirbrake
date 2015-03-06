@@ -6,6 +6,7 @@ Integrate AirBrake into an angular.js application
 ```
 bower install ng-helper-airbrake --save
 ```
+Ensure that the dependency entry comes directly after the angular dependency. Are you not sure? Check & modify the bower.json.
 
 ### Include the angular module
 ```javascript
