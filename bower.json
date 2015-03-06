@@ -9,6 +9,6 @@
   "keywords":["angular","angularjs","airbrake","service","factory", "exceptions"],
   "license":"MIT",
   "dependencies": {
-    "jquery": ">2.1"
+    "jquery": "~2.1.1"
   }
 }
