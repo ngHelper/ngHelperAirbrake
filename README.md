@@ -2,7 +2,7 @@
 
 Integrate AirBrake into an angular.js application
 
-### Install ng-helper-airbrake 
+### Install ng-helper-airbrake
 ```
 bower install ng-helper-airbrake --save
 ```
@@ -14,7 +14,7 @@ angular.module('appApp', [
     'ngHelperAirbrake'
 ]);
 ```
-### Register the project id 
+### Register the project id
 Airbrake requires a project id and secret. This can be configured via the application start in the run function as follows:
 
 ```javascript
@@ -22,6 +22,9 @@ Airbrake requires a project id and secret. This can be configured via the applic
 
       // configure airbrake
       $airbrake.setProject('<<PROJECTID>>', '<<PROJECTSECRET>>', '<<EnvironmentOptional>>');
+
+      // configure host
+      $airbrake.setHost('https://yourdomain.com');
 }]);
 ```
 
