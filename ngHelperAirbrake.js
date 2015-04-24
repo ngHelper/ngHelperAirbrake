@@ -15,6 +15,10 @@ ngHelperAirbrake.service('$airbrake', [ function() {
     _initilized = true;
   };
 
+  self.setHost = function(hostname) {
+    Airbrake.setHost(hostname);
+  };
+
   self.pushException = function(exception, cause) {
 
     // check if we are allowed to push
