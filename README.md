@@ -23,7 +23,7 @@ Airbrake requires a project id and secret. This can be configured via the applic
       // configure airbrake
       $airbrake.setProject('<<PROJECTID>>', '<<PROJECTSECRET>>', '<<EnvironmentOptional>>');
 
-      // configure host
+      // configure host (optional step for self hosted environments)
       $airbrake.setHost('https://yourdomain.com');
 }]);
 ```
