@@ -18,13 +18,12 @@ angular.module('appApp', [
 Airbrake requires a project id and secret. This can be configured via the application start in the run function as follows:
 
 ```javascript
-.run([ '$airbrake', function($airbrake,) {
+.config([ '$airbrakeProvider', function($airbrakeProvider) {
+    // configure airbrake
+    $airbrakeProvider.setProject('<<PROJECTID>>', '<<PROJECTSECRET>>', '<<EnvironmentOptional>>');
 
-      // configure airbrake
-      $airbrake.setProject('<<PROJECTID>>', '<<PROJECTSECRET>>', '<<EnvironmentOptional>>');
-
-      // configure host (optional step for self hosted environments)
-      $airbrake.setHost('https://yourdomain.com');
+    // configure host (optional step for self hosted environments)
+    $airbrakeProvider.setHost('https://yourdomain.com');
 }]);
 ```
 
