@@ -3,17 +3,13 @@
 var ngHelperAirbrake = angular.module('ngHelperAirbrake');
 
 // Override the default exception handler
-ngHelperAirbrake.factory('$exceptionHandler', ['$injector', '$airbrake', '$log', function ($injector, $airbrake, $log) {
-
-    function log(exception, cause) {
+ngHelperAirbrake.decorator('$exceptionHandler', ['$delegate', '$airbrake', function ($delegate, $airbrake) {
 
       if ($airbrake.isActive()) {
-        $airbrake.pushException(exception, cause);
+      	return function logToAirbrake (exception, cause) {
+        	$airbrake.pushException(exception, cause);
+        };
       } else {
-        $log.error(exception);
+        return $delegate;
       }
-    }
-
-    return( log );
-  }]
-);
+}]);
