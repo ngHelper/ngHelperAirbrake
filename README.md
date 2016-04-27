@@ -15,7 +15,7 @@ angular.module('appApp', [
 ]);
 ```
 ### Register the project id
-Airbrake requires a project id and secret. This can be configured via the application start in the run function as follows:
+Airbrake requires a project id and secret. This can be configured via the application config function as follows:
 
 ```javascript
 .config([ '$airbrakeProvider', function($airbrakeProvider) {
@@ -29,6 +29,17 @@ Airbrake requires a project id and secret. This can be configured via the applic
 
 The Airbrake plugin is not available as long the setProject method is not called. Only when this method is called exception
 will be catched from the subsystem.
+
+### Add custom information to the error context 
+
+```javascript
+.run([ '$airbrake', function($airbrake) {
+    // add custom context
+    $airbrake.setCustomContext({custom1: "context1", custom2: "context2" });
+}]);
+```
+You can add optional custom information to the error context via the setCustomContext function.
+
 
 ## Contributing
 

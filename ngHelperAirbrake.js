@@ -45,6 +45,13 @@ ngHelperAirbrake.provider('$airbrake', [ function() {
 
       isActive: function() {
         return _initilized;
+      },
+
+      setCustomContext: function(context) {
+        Airbrake.addFilter(function(notice) {
+          notice.context.custom = context;
+          return notice;
+        })
       }
     };
   };
