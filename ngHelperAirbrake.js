@@ -1,59 +1,70 @@
 var ngHelperAirbrake = angular.module('ngHelperAirbrake', []);
 
-ngHelperAirbrake.provider('$airbrake', [ function() {
-  
-  var self = this;
-  var _initilized = false;
+ngHelperAirbrake.provider('$airbrake', [function () {
 
-  self.setProject = function(project, secret, environment) {
-    Airbrake.setProject(project, secret);
+    var self = this;
+    var _initilized = false;
+    var Airbrake;
 
-    if (environment && environment !== undefined) {
-      Airbrake.setEnvironmentName(environment);
+    self.setProject = function (project, secret, environment) {
+        Airbrake = new airbrakeJs.Client({projectId: project, projectKey: secret});
+
+        if (Airbrake && environment && environment !== undefined) {
+            Airbrake.addFilter(function (notice) {
+                notice.context.environment = environment;
+                return notice;
+            });
+        }
+        _initilized = true;
+    };
+
+    self.setHost = function (hostname) {
+        if (Airbrake) {
+            Airbrake.setHost(hostname);
+        }
+    };
+
+
+    // register our standard logger for the airbrake object
+    if (Airbrake) {
+        Airbrake.addFilter(function (notice) {
+            return true;
+        });
     }
 
-    _initilized = true;
-  };
+    self.$get = function () {
+        return {
+            pushException: function (exception, cause) {
+                // check if we are allowed to push
+                if (!_initilized) {
+                    return;
+                }
 
-  self.setHost = function(hostname) {
-    Airbrake.setHost(hostname);
-  };
+                // push
+                if (Airbrake) {
+                    Airbrake.notify({
+                        error : {
+                            message : exception.toString(),
+                            stack : exception.stack
+                        }
+                    });
+                }
+            },
 
+            isActive: function () {
+                return _initilized;
+            },
 
-  // register our standard logger for the airbrake object
-  Airbrake.addFilter(function (notice) {
-    return true;
-  });
+            setCustomContext: function (context) {
+                if (Airbrake) {
+                    Airbrake.addFilter(function (notice) {
+                        notice.context.custom = context;
+                        return notice;
+                    });
+                }
 
-
-  self.$get = function () {
-    return {
-      pushException: function(exception, cause) {
-        // check if we are allowed to push
-        if (!_initilized) {
-          return;
-        }
-
-        // push
-        Airbrake.push({
-          error : {
-            message : exception.toString(),
-            stack : exception.stack
-          }
-        });
-      },
-
-      isActive: function() {
-        return _initilized;
-      },
-
-      setCustomContext: function(context) {
-        Airbrake.addFilter(function(notice) {
-          notice.context.custom = context;
-          return notice;
-        })
-      }
+            }
+        };
     };
-  };
 
 }]);
