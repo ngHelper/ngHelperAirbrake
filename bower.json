@@ -1,6 +1,6 @@
 {
   "name": "ng-helper-airbrake",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "homepage":"https://github.com/ngHelper/ngHelperAirbrake",
   "authors":["dei79 <dirk.eisenberg@gmail.com>"],
   "description":"Integrate AirBrake into a angular.js application",
